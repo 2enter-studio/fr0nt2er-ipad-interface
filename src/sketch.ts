@@ -6,7 +6,7 @@ const canvas_width: number = container_dom.offsetWidth;
 const canvas_height: number = container_dom.offsetHeight;
 
 const frame_rate = 20;
-const offset_x: number = 80;
+const offset_x: number = 81;
 
 // Constain variable for graphic generation
 const [circle_scale, dot_amount] = [1.8, 8];
@@ -58,7 +58,7 @@ const switch_img = (img_id: number): void => {
 
 
 let current_touch_x: number | null;
-const touch_step = 0.00008;
+const touch_step = 1;
 
 container_dom.ontouchmove = e => {
   const touch_x = e.touches[0].clientX;
@@ -75,7 +75,7 @@ container_dom.ontouchend = () => {
 }
 
 function send_osc() {
-  fetch(`http://${localhost}:${BACKEND_PORT}/send/${get_img_num() / IMG_AMOUNT}`).then(res => { console.log(res) })
+  fetch(`http://${localhost}:${BACKEND_PORT}/send/${progress_value / IMG_AMOUNT}`).then(res => { console.log(res) })
 }
 
 
