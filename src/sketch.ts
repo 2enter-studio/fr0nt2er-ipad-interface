@@ -1,4 +1,4 @@
-const [IMG_AMOUNT, BACKEND_PORT, PROGRESS_PER_IMG, MAX_OSC] = [2512, 3002, 35, 1302375];
+const [IMG_AMOUNT, BACKEND_PORT] = [2512, 3002];
 
 // Get Div's width & height
 const container_dom = <HTMLDivElement>document.getElementById("p5-container");
@@ -14,20 +14,15 @@ const unit_length = 60;
 let main_canvas;
 let rewinding: boolean = false;
 
-// Delete this after connect to osc server
-let [progress_value, current_img_id] = [0, 1000];
-const localhost = '10.254.23.169'
-// const localhost = '10.254.24.189'
-// const localhost = '10.254.24.189'
+let [progress_value, current_img_id] = [0, 0];
+const localhost = 'localhost'
 
 // Get realtime video progress value
 const get_video_progress = () => {
-  console.log(`http://${localhost}:${BACKEND_PORT}/osc-info`)
   fetch(`http://${localhost}:${BACKEND_PORT}/osc-info`).then((res) => {
     res.text().then((data) => {
       console.log(data)
-      progress_value = parseInt(data);
-      console.log('yeah')
+      progress_value = parseFloat(data);
     })
   }).catch(err => console.log(err))
 };
@@ -36,7 +31,7 @@ const get_video_progress = () => {
 // Get image to show by progress_value
 const get_img_num = (): number => {
   // ~~ : Math.round()
-  return ~~(progress_value / PROGRESS_PER_IMG);
+  return ~~(IMG_AMOUNT * progress_value);
 };
 
 // Switch DOM backgroundImage by img_id
@@ -59,7 +54,7 @@ const switch_img = (img_id: number): void => {
 
 
 let current_touch_x: number | null;
-const touch_step = 10
+const touch_step = 0.00008;
 
 container_dom.ontouchmove = e => {
   const touch_x = e.touches[0].clientX;
@@ -76,7 +71,7 @@ container_dom.ontouchend = () => {
 }
 
 function send_osc() {
-  fetch(`http://${localhost}:${BACKEND_PORT}/send/${get_img_num() * IMG_AMOUNT}`).then(res => { console.log(res) })
+  fetch(`http://${localhost}:${BACKEND_PORT}/send/${get_img_num() / IMG_AMOUNT}`).then(res => { console.log(res) })
 }
 
 
@@ -93,7 +88,7 @@ const sketch = function(p: p5) {
     for (let i = -10; i < dot_amount + 10; i++) {
       const line_length = unit_length;
       const v1 = p.createVector(
-        canvas_width * i / dot_amount - (progress_value % 77),
+        canvas_width * i / dot_amount - ((progress_value * 180000) % canvas_width),
         canvas_height * .35
       );
       const v2 = (circle_center.copy().sub(v1)).normalize().mult(canvas_height * circle_scale / 2 + line_length / 2)
@@ -103,8 +98,9 @@ const sketch = function(p: p5) {
       p.line(p1.x, p1.y, p2.x, p2.y)
       p.strokeWeight(1)
       p.textSize(15)
+      p.textSize(20)
       p.textAlign(p.CENTER, p.BOTTOM)
-      p.text((~~(progress_value / PROGRESS_PER_IMG)) + i - dot_amount / 2, p1.x, p1.y)
+      p.text((get_img_num()) + i - dot_amount / 2, p1.x, p1.y)
 
       // p.line(circle_center.x, circle_center.y, circle_center.x - v2.x, circle_center.y - v2.y)
     }
@@ -116,7 +112,7 @@ const sketch = function(p: p5) {
   p.setup = () => {
     p.colorMode(p.HSB);
     switch_img(0);
-    p.frameRate(10);
+    p.frameRate(5);
     main_canvas = p.createCanvas(canvas_width, canvas_height, "p2d");
     main_canvas.parent("p5-container");
   };
@@ -128,9 +124,9 @@ const sketch = function(p: p5) {
     } else {
       // send_osc();
     }
-    if (progress_value >= IMG_AMOUNT * PROGRESS_PER_IMG) rewinding = true;
+    if (progress_value >= 1) rewinding = true;
     if (rewinding) {
-      progress_value -= IMG_AMOUNT * PROGRESS_PER_IMG / 20
+      progress_value -= 1.0 / 20.0
     };
 
     if (progress_value < 0) {
