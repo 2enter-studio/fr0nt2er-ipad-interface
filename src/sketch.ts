@@ -6,7 +6,7 @@ const canvas_width: number = container_dom.offsetWidth;
 const canvas_height: number = container_dom.offsetHeight;
 
 const frame_rate = 20;
-const offset_x: number = 82;
+const offset_x: number = 79;
 
 // Constain variable for graphic generation
 const [circle_scale, dot_amount] = [1.8, 8];
