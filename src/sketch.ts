@@ -61,13 +61,14 @@ let current_touch_x: number | null;
 const touch_step = 0.5;
 
 container_dom.ontouchmove = e => {
-  const touch_x = e.touches[0].clientX;
-  if (!current_touch_x) current_touch_x = touch_x;
-  progress_value -= ((touch_x - current_touch_x) * touch_step)
-  current_touch_x = touch_x;
-  // send_osc();
-  if (touch_x < current_touch_x) progress_value += touch_step;
-  else progress_value -= touch_step;
+  if (!rewinding) {
+    const touch_x = e.touches[0].clientX;
+    if (!current_touch_x) current_touch_x = touch_x;
+    progress_value -= ((touch_x - current_touch_x) * touch_step)
+    current_touch_x = touch_x;
+    if (touch_x < current_touch_x) progress_value += touch_step;
+    else progress_value -= touch_step;
+  }
 }
 
 container_dom.ontouchend = () => {
