@@ -6,7 +6,7 @@ const canvas_width: number = container_dom.offsetWidth;
 const canvas_height: number = container_dom.offsetHeight;
 
 const frame_rate = 20;
-let offset_x: number = 0;
+const offset_x: number = 80;
 
 // Constain variable for graphic generation
 const [circle_scale, dot_amount] = [1.8, 8];
@@ -35,7 +35,7 @@ const get_video_progress = () => {
 // Get image to show by progress_value
 const get_img_num = (): number => {
   // ~~ : Math.round()
-  return ~~(IMG_AMOUNT * progress_value);
+  return Math.floor(progress_value);
 };
 
 // Switch DOM backgroundImage by img_id
@@ -95,7 +95,7 @@ const sketch = function(p: p5) {
         // canvas_width * i / dot_amount - ((progress_value * 190000) % canvas_width),
         // canvas_width * i / dot_amount - (((canvas_width / (dot_amount)) * (p.frameCount % frame_rate)) / frame_rate),
         // canvas_width * i / dot_amount - (offset_x * (p.frameCount % frame_rate) / frame_rate),
-        canvas_width * i / dot_amount - offset_x,
+        canvas_width * i / dot_amount + offset_x * (1 - (progress_value - get_img_num())),
         canvas_height * .35
       );
       const v2 = (circle_center.copy().sub(v1)).normalize().mult(canvas_height * circle_scale / 2 + line_length / 2)
@@ -134,7 +134,7 @@ const sketch = function(p: p5) {
       progress_value -= 1.0 / 20.0
     };
 
-    if (progress_value < 0) {
+    if (progress_value <= 0.01 && rewinding) {
       progress_value = 0;
       current_touch_x = 0;
       rewinding = false;
