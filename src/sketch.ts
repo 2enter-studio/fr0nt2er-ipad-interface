@@ -6,7 +6,7 @@ const canvas_width: number = container_dom.offsetWidth;
 const canvas_height: number = container_dom.offsetHeight;
 
 const frame_rate = 20;
-const offset_x: number = 81;
+const offset_x: number = 82;
 
 // Constain variable for graphic generation
 const [circle_scale, dot_amount] = [1.8, 8];
@@ -24,7 +24,7 @@ const localhost = 'localhost'
 const get_video_progress = () => {
   fetch(`http://${localhost}:${BACKEND_PORT}/osc-info`).then((res) => {
     res.text().then((data) => {
-      console.log(data)
+      // console.log(data)
       progress_value = parseFloat(data);
       // progress_value += 0.00001;
     })
@@ -46,7 +46,7 @@ const switch_img = (img_id: number): void => {
   fetch(`http://${localhost}:${BACKEND_PORT}/imginfo/${img_id}`).then((res) => {
     res.json().then((data) => {
       let content: string = '';
-      console.log(data);
+      // console.log(data);
       for (const [key, value] of Object.entries(data)) {
         content += `${key} -> ${value}<br>`
       }
@@ -58,7 +58,7 @@ const switch_img = (img_id: number): void => {
 
 
 let current_touch_x: number | null;
-const touch_step = 1;
+const touch_step = 0.8;
 
 container_dom.ontouchmove = e => {
   const touch_x = e.touches[0].clientX;
@@ -148,10 +148,7 @@ const sketch = function(p: p5) {
     if (income_img_id !== current_img_id) {
       console.log(progress_value, income_img_id);
       switch_img(income_img_id);
-    } else {
-      console.log(progress_value);
     }
-
     draw_graph();
     current_img_id = income_img_id;
   };
