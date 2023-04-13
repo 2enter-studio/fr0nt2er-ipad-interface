@@ -126,17 +126,17 @@ const sketch = function(p: p5) {
     const sliding = current_touch_x != null;
     if (!sliding || !rewinding) {
       get_video_progress();
-    } else {
-      // send_osc();
     }
+
     if (progress_value >= IMG_AMOUNT) rewinding = true;
+
     if (rewinding) {
       progress_value -= IMG_AMOUNT / 20.0
     };
 
-    if (progress_value <= 0.01 && rewinding) {
+    if (progress_value <= 1 && rewinding) {
       progress_value = 0;
-      current_touch_x = 0;
+      current_touch_x = null;
       rewinding = false;
       send_osc()
     }
