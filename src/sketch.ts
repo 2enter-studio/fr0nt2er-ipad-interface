@@ -5,7 +5,7 @@ const container_dom = <HTMLDivElement>document.getElementById("p5-container");
 const canvas_width: number = container_dom.offsetWidth;
 const canvas_height: number = container_dom.offsetHeight;
 
-const frame_rate = 20;
+const frame_rate = 10;
 const offset_x: number = 79;
 
 // Constain variable for graphic generation
