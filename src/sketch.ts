@@ -133,7 +133,7 @@ const sketch = function(p: p5) {
       send_osc();
     }
 
-    if (progress_value >= IMG_AMOUNT) rewinding = true;
+    if (progress_value >= IMG_AMOUNT - 2) rewinding = true;
 
     if (rewinding) {
       progress_value -= IMG_AMOUNT / (frame_rate * 3)
