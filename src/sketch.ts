@@ -65,7 +65,7 @@ container_dom.ontouchmove = e => {
   if (!current_touch_x) current_touch_x = touch_x;
   progress_value -= ((touch_x - current_touch_x) * touch_step)
   current_touch_x = touch_x;
-  send_osc();
+  // send_osc();
   if (touch_x < current_touch_x) progress_value += touch_step;
   else progress_value -= touch_step;
 }
@@ -73,6 +73,7 @@ container_dom.ontouchmove = e => {
 container_dom.ontouchend = () => {
   current_touch_x = null;
 }
+
 
 function send_osc() {
   fetch(`http://${localhost}:${BACKEND_PORT}/send/${progress_value / IMG_AMOUNT}`).then(res => { console.log(res) })
@@ -126,6 +127,10 @@ const sketch = function(p: p5) {
     const sliding = current_touch_x != null;
     if (!sliding && !rewinding) {
       get_video_progress();
+    }
+
+    if (sliding) {
+      send_osc();
     }
 
     if (progress_value >= IMG_AMOUNT) rewinding = true;
