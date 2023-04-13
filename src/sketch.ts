@@ -131,7 +131,7 @@ const sketch = function(p: p5) {
     }
     if (progress_value >= 1) rewinding = true;
     if (rewinding) {
-      progress_value -= 1.0 / 20.0
+      progress_value -= IMG_AMOUNT / 20.0
     };
 
     if (progress_value <= 0.01 && rewinding) {
