@@ -124,7 +124,7 @@ const sketch = function(p: p5) {
 
   p.draw = () => {
     const sliding = current_touch_x != null;
-    if (!sliding || !rewinding) {
+    if (!sliding && !rewinding) {
       get_video_progress();
     }
 
@@ -132,6 +132,7 @@ const sketch = function(p: p5) {
 
     if (rewinding) {
       progress_value -= IMG_AMOUNT / (frame_rate * 3)
+      send_osc()
     };
 
     if (progress_value <= 1 && rewinding) {
