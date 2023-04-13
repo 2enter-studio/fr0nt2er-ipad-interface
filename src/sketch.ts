@@ -18,7 +18,7 @@ let main_canvas;
 let rewinding: boolean = false;
 
 let [progress_value, current_img_id] = [0, 0];
-const localhost = 'localhost'
+const localhost = '169.254.186.46'
 
 // Get realtime video progress value
 const get_video_progress = () => {
