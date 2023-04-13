@@ -58,7 +58,7 @@ const switch_img = (img_id: number): void => {
 
 
 let current_touch_x: number | null;
-const touch_step = 0.8;
+const touch_step = 0.5;
 
 container_dom.ontouchmove = e => {
   const touch_x = e.touches[0].clientX;
