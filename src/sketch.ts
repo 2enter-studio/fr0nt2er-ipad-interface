@@ -1,4 +1,4 @@
-const [IMG_AMOUNT, BACKEND_PORT] = [2512, 3002];
+const [IMG_AMOUNT, BACKEND_PORT, LOCALHOST] = [2512, 3002, '10.254.24.189'];
 
 // Get Div's width & height
 const container_dom = <HTMLDivElement>document.getElementById("p5-container");
@@ -18,11 +18,10 @@ let main_canvas;
 let rewinding: boolean = false;
 
 let [progress_value, current_img_id] = [0, 0];
-const localhost = '10.254.24.289'
 
 // Get realtime video progress value
 const get_video_progress = () => {
-  fetch(`http://${localhost}:${BACKEND_PORT}/osc-info`).then((res) => {
+  fetch(`http://${LOCALHOST}:${BACKEND_PORT}/osc-info`).then((res) => {
     res.text().then((data) => {
       // console.log(data)
       progress_value = parseFloat(data);
@@ -43,7 +42,7 @@ const switch_img = (img_id: number): void => {
   const img_container = <HTMLDivElement>(
     document.getElementById("img-container")
   );
-  fetch(`http://${localhost}:${BACKEND_PORT}/imginfo/${img_id}`).then((res) => {
+  fetch(`http://${LOCALHOST}:${BACKEND_PORT}/imginfo/${img_id}`).then((res) => {
     res.json().then((data) => {
       let content: string = '';
       // console.log(data);
@@ -53,7 +52,7 @@ const switch_img = (img_id: number): void => {
       document.getElementById('img-info')?.innerHTML = content
     });
   });
-  if (img_container) img_container.style.backgroundImage = `url('http://${localhost}:${BACKEND_PORT}/img/${img_id}')`;
+  if (img_container) img_container.style.backgroundImage = `url('http://${LOCALHOST}:${BACKEND_PORT}/img/${img_id}')`;
 };
 
 
@@ -77,7 +76,7 @@ container_dom.ontouchend = () => {
 
 
 function send_osc() {
-  fetch(`http://${localhost}:${BACKEND_PORT}/send/${progress_value / IMG_AMOUNT}`).then(res => { console.log(res) })
+  fetch(`http://${LOCALHOST}:${BACKEND_PORT}/send/${progress_value / IMG_AMOUNT}`).then(res => { console.log(res) })
 }
 
 
