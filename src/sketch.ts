@@ -124,7 +124,7 @@ const sketch = function(p: p5) {
 
   p.draw = () => {
     const sliding = current_touch_x != null;
-    if (!sliding) {
+    if (!sliding || !rewinding) {
       get_video_progress();
     } else {
       // send_osc();
