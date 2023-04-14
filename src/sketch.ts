@@ -1,4 +1,4 @@
-const [IMG_AMOUNT, BACKEND_PORT, LOCALHOST] = [2512, 3002, '10.254.24.189'];
+const [IMG_AMOUNT, BACKEND_PORT, LOCALHOST] = [668, 3002, '10.254.24.189'];
 
 // Get Div's width & height
 const container_dom = <HTMLDivElement>document.getElementById("p5-container");
