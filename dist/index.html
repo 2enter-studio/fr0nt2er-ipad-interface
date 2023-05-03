@@ -9,31 +9,54 @@
   <link rel="stylesheet" href="./tailwind.css">
 </head>
 
-<body class="p-0 m-0 justify-center items-center flex h-screen overflow-hidden bg-black/80">
-  <div class="old-btn w-[10vw] h-full bg-white/70"></div>
-  <div class="flex flex-col justify-center items-center">
-    <a type="submit" class="old-btn flex justify-center items-center w-full h-full bg-white/70 text-xl p-4 text-black">
-      hello
-    </a>
-    <div class="flex flex-row justify-evenly items-center w-full">
-      <div id="img-container" class="w-[50vw] h-[50vh] bg-no-repeat bg-contain bg-center bg-red-900"></div>
-      <div id="img-info" class="text-xl w-[30vw] max-h-[50vh] border-2 px-8 py-5 break-all bg-black text-white"></div>
+<body
+  class="p-0 m-0 justify-center items-center flex h-screen overflow-hidden bg-gradient-to-tr from-white/60 via-white/80 to-white/40 shadow-inner shadow-black">
+  <div
+    class="flex flex-col justify-center items-center h-[92vh] w-[92vw] bg-gradient-to-tr from-white/10 via-white/30 to-white/10 rounded-[10%] shadow-black/50 shadow-2xl">
+    <div
+      class="flex flex-col justify-center items-center h-[80vh] w-[80vw] bg-gradient-to-tr from-black/60 via-black/90 to-black/70 rounded-[10%] shadow-black shadow-2xl">
+      <div id="img-container" class="w-full h-[55vh] bg-no-repeat bg-cover bg-center shadow-inner shadow-black">
+        <div id="img-info"
+          class="text-xl w-1/2 h-full backdrop-blur-sm bg-black/50 shadow-black shadow-2xl px-2 pb-5 rounded-tl-[20%] break-all text-white flex items-end">
+        </div>
+      </div>
+
+      <div class="flex flex-row justify-center items-center w-full">
+        <div class="flex justify-center items-center w-full h-[25vh] ">
+          <div id="p5-container" class="w-full h-full"></div>
+        </div>
+      </div>
     </div>
-    <div id="p5-container" class="w-[80vw] h-[40vh]"></div>
   </div>
-  <div class="old-btn w-[10vw] h-full bg-white/70"></div>
 
   <script src="./sketch.js" type="module"></script>
 </body>
 
 <style>
+  * {
+    overflow: hidden;
+  }
+
+  html {
+    background-color: black;
+  }
+
   .old-btn {
-    border: 8px outset white;
+    border: 9px outset hsla(122, 100%, 30%, 3);
     text-decoration: none;
+    background-color: hsla(0, 100%, 50%, 0.3);
   }
 
   .old-btn:active {
     border-style: inset;
+  }
+
+  .p5Canvas {
+    filter: blur(0px);
+  }
+
+  #img-info {
+    text-shadow: 2px 2px green;
   }
 </style>
 
