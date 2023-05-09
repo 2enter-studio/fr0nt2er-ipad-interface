@@ -1,4 +1,4 @@
-const [IMG_AMOUNT, BACKEND_PORT, LOCALHOST] = [2512, 3002, "localhost"];
+const [IMG_AMOUNT, BACKEND_PORT, LOCALHOST] = [2512, 3002, "192.168.137.1"];
 
 // Get Div's width & height
 const container_dom = <HTMLDivElement>document.getElementById("p5-container");
@@ -75,7 +75,7 @@ let current_touch_x: number | null;
 const touch_step = 0.5;
 
 container_dom.ontouchmove = (e) => {
-	if (!rewinding) {
+	if (!rewinding && progress_value >= 10) {
 		const touch_x = e.touches[0].clientX;
 		if (!current_touch_x) current_touch_x = touch_x;
 		progress_value -= (touch_x - current_touch_x) * touch_step;
@@ -86,8 +86,13 @@ container_dom.ontouchmove = (e) => {
 };
 
 container_dom.ontouchend = () => {
+	document.getElementById('touch-me').style.display = 'none'
 	current_touch_x = null;
 };
+
+setTimeout(() => {
+	window.location.reload();
+}, 60000)
 
 function send_osc() {
 	fetch(
@@ -123,14 +128,14 @@ const sketch = function(p: p5) {
 			const v3 = v2.normalize().mult(line_length);
 			const p2 = { x: p1.x + v3.x, y: p1.y + v3.y };
 			p.line(p1.x, p1.y, p2.x, p2.y);
-			p.strokeWeight(1);
+			p.strokeWeight(2);
 			p.fill(255, 200);
 			get_img_num() === current_img_id ? p.textSize(20) : p.textSize(15);
 			p.textAlign(p.CENTER, p.BOTTOM);
 			p.text(get_img_num() + i + 2 - dot_amount / 2, p1.x, p1.y);
 		}
 		p.stroke(255, 200);
-		p.strokeWeight(1);
+		p.strokeWeight(3);
 		p.line(canvas_width / 2, 0, canvas_width / 2, canvas_height);
 	}
 

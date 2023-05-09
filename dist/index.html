@@ -18,16 +18,16 @@
       <div id="img-container" class="w-full h-[55vh] bg-no-repeat bg-cover bg-center shadow-inner shadow-black">
         <div
           class="text-xl w-5/12 h-full backdrop-blur-2xl shadow-black shadow-2xl px-2 pb-5 rounded-tl-[20%] break-all text-white flex flex-col items-center justify-center">
-          <div id="img-info" class="flex flex-col items-center justify-center text-xl pt-2 gap-1">
-            <div id="brand-logo" class="bg-no-repeat bg-cover w-[20vw] h-[20vw] rounded-xl"></div>
+          <div id="img-info" class="flex flex-col items-center justify-center text-xl pt-4 gap-1">
+            <div class="bg-white/90 rounded-b-full rounded-tr-full text-black p-3 mb-2 px-5 text-left">
+              <div id="frontier_msg" class="text-2xl"></div>
+              <div id="date" class="text-sm text-black/70"></div>
+            </div>
+            <div id="brand-logo" class="bg-no-repeat bg-contain bg-center w-[20vw] h-[20vw]"></div>
             <!-- <div id="brand"></div> -->
             <div id="model"></div>
             <div id="software" class="text-sm"></div>
-            <div class="bg-white/90 rounded-b-full rounded-tr-full text-black p-3 px-5 text-left">
-              <div id="frontier_msg" class="text-2xl"></div>
-              <div id="date" class="text-sm"></div>
-            </div>
-            <div class="w-full p-3 bg-white/20 rounded-xl my-2">
+            <div class="w-full p-3 pb-5 bg-white/20 rounded-xl my-2 text-black/80">
               <a id="f_number-value">F Number</a>
               <progress class="w-full progress progress-info h-3" max="10" id="f_number">hello</progress>
               <a id="focal_length-value">Focal Length</a>
@@ -44,6 +44,7 @@
       <div class="flex flex-row justify-center items-center w-full">
         <div class="flex justify-center items-center w-full h-[25vh] ">
           <div id="p5-container" class="w-full h-full"></div>
+          <div id="touch-me" class="absolute animate-bounce bottom-[20vh] font-bold text-white">左右滑動此處以拖動時間軸</div>
         </div>
       </div>
     </div>
