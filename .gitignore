@@ -93,6 +93,7 @@ out
 dist/*
 !dist/index.html
 !dist/p5.js
+!dist/mobile_brand_logos
 
 # Gatsby files
 .cache/
