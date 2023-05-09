@@ -16,6 +16,7 @@
     "typescript": "^5.0.2"
   },
   "dependencies": {
-    "@types/p5": "^1.6.0"
+    "@types/p5": "^1.6.0",
+    "daisyui": "^2.51.6"
   }
 }
