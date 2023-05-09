@@ -16,8 +16,28 @@
     <div
       class="flex flex-col justify-center items-center h-[80vh] w-[80vw] bg-gradient-to-tr from-black/60 via-black/90 to-black/70 rounded-[10%] shadow-black shadow-2xl">
       <div id="img-container" class="w-full h-[55vh] bg-no-repeat bg-cover bg-center shadow-inner shadow-black">
-        <div id="img-info"
-          class="text-xl w-1/2 h-full backdrop-blur-sm bg-black/50 shadow-black shadow-2xl px-2 pb-5 rounded-tl-[20%] break-all text-white flex items-end">
+        <div
+          class="text-xl w-5/12 h-full backdrop-blur-2xl shadow-black shadow-2xl px-2 pb-5 rounded-tl-[20%] break-all text-white flex flex-col items-center justify-center">
+          <div id="img-info" class="flex flex-col items-center justify-center text-xl pt-2 gap-1">
+            <div id="brand-logo" class="bg-no-repeat bg-cover w-[20vw] h-[20vw] rounded-xl"></div>
+            <!-- <div id="brand"></div> -->
+            <div id="model"></div>
+            <div id="software" class="text-sm"></div>
+            <div class="bg-white/90 rounded-b-full rounded-tr-full text-black p-3 px-5 text-left">
+              <div id="frontier_msg" class="text-2xl"></div>
+              <div id="date" class="text-sm"></div>
+            </div>
+            <div class="w-full p-3 bg-white/20 rounded-xl my-2">
+              <a id="f_number-value">F Number</a>
+              <progress class="w-full progress progress-info h-3" max="10" id="f_number">hello</progress>
+              <a id="focal_length-value">Focal Length</a>
+              <progress class="w-full progress progress-warning h-3" max="10" id="focal_length"></progress>
+              <a id="flash-value">Flash</a>
+              <progress class="w-full progress progress-accent h-3" id="flash" max="30"></progress>
+              <a id="iso-value">ISO</a>
+              <progress class="w-full progress progress-primary h-3" id="iso" max="3000"></progress>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -51,13 +71,7 @@
     border-style: inset;
   }
 
-  .p5Canvas {
-    filter: blur(0px);
-  }
-
-  #img-info {
-    text-shadow: 2px 2px green;
-  }
+  #img-info {}
 </style>
 
 </html>

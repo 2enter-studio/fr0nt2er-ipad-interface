@@ -1,4 +1,4 @@
-const [IMG_AMOUNT, BACKEND_PORT, LOCALHOST] = [2512, 3002, "192.168.137.1"];
+const [IMG_AMOUNT, BACKEND_PORT, LOCALHOST] = [2512, 3002, "localhost"];
 
 // Get Div's width & height
 const container_dom = <HTMLDivElement>document.getElementById("p5-container");
@@ -47,10 +47,24 @@ const switch_img = (img_id: number): void => {
 	fetch(`http://${LOCALHOST}:${BACKEND_PORT}/imginfo/${img_id}`).then((res) => {
 		res.json().then((data) => {
 			let content: string = "";
+			const info_dom = document.getElementById("img-info");
 			for (const [key, value] of Object.entries(data)) {
-				content += `${key} -> ${value}<br>`;
+				// if (key !== "raw") content += `${key} -> ${value}<br>`;
+				if (key !== "raw") {
+					document.getElementById(key)?.innerHTML = value || '0';
+					document.getElementById(key)?.value = value || '0';
+				}
 			}
-			document.getElementById("img-info").innerHTML = content;
+			document.getElementById('date')?.innerHTML = data.date.replace(':', '/').replace(':', '/')
+
+			document.getElementById('focal_length-value')?.innerHTML = "FOCAL LENGTH: " + data.focal_length
+			document.getElementById('iso-value')?.innerHTML = "ISO: " + data.iso
+			document.getElementById('f_number-value')?.innerHTML = "F NUMBER: " + data.f_number
+			document.getElementById('flash-value')?.innerHTML = "FLASH: " + data.flash
+			// document.getElementById("img-info").innerHTML = content;
+			document.getElementById(
+				"brand-logo",
+			).style.backgroundImage = `url("./mobile_brand_logos/${data.brand.toLowerCase().replace(" ", "_")}.jpg")`;
 		});
 	});
 	if (img_container)
@@ -84,7 +98,7 @@ function send_osc() {
 }
 
 // P5 Script
-const sketch = function (p: p5) {
+const sketch = function(p: p5) {
 	function draw_graph() {
 		const circle_center = p.createVector(...circle_center_xy);
 		p.noFill();
@@ -96,7 +110,7 @@ const sketch = function (p: p5) {
 			const line_length = unit_length;
 			const v1 = p.createVector(
 				(canvas_width * i) / dot_amount +
-					offset_x * (1 - (progress_value - get_img_num())),
+				offset_x * (1 - (progress_value - get_img_num())),
 				canvas_height * 0.35,
 			);
 			const v2 = circle_center
