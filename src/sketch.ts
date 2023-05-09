@@ -75,6 +75,7 @@ let current_touch_x: number | null;
 const touch_step = 0.5;
 
 container_dom.ontouchmove = (e) => {
+	document.getElementById('touch-me').style.display = 'none'
 	if (!rewinding && progress_value >= 10) {
 		const touch_x = e.touches[0].clientX;
 		if (!current_touch_x) current_touch_x = touch_x;
@@ -86,7 +87,7 @@ container_dom.ontouchmove = (e) => {
 };
 
 container_dom.ontouchend = () => {
-	document.getElementById('touch-me').style.display = 'none'
+	document.getElementById('touch-me').style.display = 'block'
 	current_touch_x = null;
 };
 
