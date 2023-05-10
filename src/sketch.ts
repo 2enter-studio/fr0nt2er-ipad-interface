@@ -84,7 +84,7 @@ container_dom.ontouchmove = (e) => {
 		progress_value -= (touch_x - current_touch_x) * touch_step;
 
 		if (touch_x > current_touch_x) turning_dir = 1;
-		else if (touch_x <= current_touch_x) turning_dir = -1;
+		else if (touch_x < current_touch_x) turning_dir = -1;
 		else turning_dir = 0;
 
 		current_touch_x = touch_x;
