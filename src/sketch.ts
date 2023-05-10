@@ -125,7 +125,7 @@ const sketch = function(p: p5) {
 				const line_length = unit_length;
 				const v1 = p.createVector(
 					(canvas_width * i) / dot_amount +
-					offset_x * (1 - (progress_value - get_img_num())) + (j * 8),
+					offset_x * (1 - (progress_value - get_img_num())) + (j * 11),
 					canvas_height * 0.35,
 				);
 				const v2 = circle_center
