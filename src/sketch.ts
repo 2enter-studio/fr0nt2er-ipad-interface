@@ -162,12 +162,12 @@ const sketch = function(p: p5) {
 			}
 		}
 		// Draw center line
-		p.stroke(0, 255, 255, 200);
+		p.stroke(15, 255, 255, 200);
 		p.strokeWeight(2);
 		const arrow_width = 10;
 		const arrow_height = 50;
 		p.beginShape();
-		p.fill(0, 255, 255, 100);
+		p.fill(15, 255, 255, 100);
 		p.vertex(canvas_width / 2 - arrow_width, 0);
 		if (rewinding) p.vertex(canvas_width / 2 - arrow_width / 2, arrow_height);
 		else p.vertex(canvas_width / 2 - turning_dir * (arrow_width / 2), arrow_height);
