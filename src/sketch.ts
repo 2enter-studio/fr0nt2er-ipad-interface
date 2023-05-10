@@ -122,7 +122,6 @@ const sketch = function(p: p5) {
 
 		for (let i = -10; i < dot_amount + 10; i++) {
 			for (let j = 0; j < 10; j++) {
-				console.log(j)
 				const line_length = unit_length;
 				const v1 = p.createVector(
 					(canvas_width * i) / dot_amount +
@@ -137,24 +136,34 @@ const sketch = function(p: p5) {
 
 				const p1 = { x: circle_center.x - v2.x, y: circle_center.y - v2.y };
 				let v3;
+				p.textSize(20)
+				p.strokeWeight(2);
+				p.fill(255);
+				p.textAlign(p.CENTER, p.BOTTOM);
 				if (j > 0) {
+					p.strokeWeight(1)
+					p.fill(90, 255, 155)
+					p.stroke(90, 255, 155)
 					v3 = v2.normalize().mult(10);
 				}
 				else {
+					p.fill(200)
+					p.stroke(200)
 					v3 = v2.normalize().mult(line_length);
+					p.strokeWeight(1)
 					p.text(get_img_num() + i + 2 - dot_amount / 2, p1.x, p1.y - 10);
+					p.fill(90, 255, 255)
+					p.strokeWeight(3)
 				}
 				const p2 = { x: p1.x + v3.x, y: p1.y + v3.y };
 				p.line(p1.x, p1.y, p2.x, p2.y);
-				p.strokeWeight(2);
-				p.fill(255, 200);
-				get_img_num() === current_img_id ? p.textSize(20) : p.textSize(15);
-				p.textAlign(p.CENTER, p.BOTTOM);
+				// get_img_num() === current_img_id ? p.textSize(20) : p.textSize(15);
+				//
 			}
 		}
 		// Draw center line
 		p.stroke(0, 255, 255, 200);
-		p.strokeWeight(3);
+		p.strokeWeight(2);
 		const arrow_width = 10;
 		const arrow_height = 50;
 		p.beginShape();
