@@ -72,7 +72,7 @@ const switch_img = (img_id: number): void => {
 };
 
 let current_touch_x: number | null;
-const touch_step = 0.5;
+const touch_step = 0.43;
 
 let turning_dir = 0;
 
@@ -83,8 +83,8 @@ container_dom.ontouchmove = (e) => {
 		if (!current_touch_x) current_touch_x = touch_x;
 		progress_value -= (touch_x - current_touch_x) * touch_step;
 
-		if (touch_x > current_touch_x) turning_dir = 1;
-		else if (touch_x < current_touch_x) turning_dir = -1;
+		if (touch_x > current_touch_x) turning_dir = -1;
+		else if (touch_x < current_touch_x) turning_dir =  1;
 		else turning_dir = 0;
 
 		current_touch_x = touch_x;
@@ -121,27 +121,36 @@ const sketch = function(p: p5) {
 		p.strokeWeight(10);
 
 		for (let i = -10; i < dot_amount + 10; i++) {
-			const line_length = unit_length;
-			const v1 = p.createVector(
-				(canvas_width * i) / dot_amount +
-				offset_x * (1 - (progress_value - get_img_num())),
-				canvas_height * 0.35,
-			);
-			const v2 = circle_center
-				.copy()
-				.sub(v1)
-				.normalize()
-				.mult((canvas_height * circle_scale) / 2 + line_length / 2);
+			for (let j = 0; j < 10; j++) {
+				console.log(j)
+				const line_length = unit_length;
+				const v1 = p.createVector(
+					(canvas_width * i) / dot_amount +
+					offset_x * (1 - (progress_value - get_img_num())) + (j * 8),
+					canvas_height * 0.35,
+				);
+				const v2 = circle_center
+					.copy()
+					.sub(v1)
+					.normalize()
+					.mult((canvas_height * circle_scale) / 2 + line_length / 2);
 
-			const p1 = { x: circle_center.x - v2.x, y: circle_center.y - v2.y };
-			const v3 = v2.normalize().mult(line_length);
-			const p2 = { x: p1.x + v3.x, y: p1.y + v3.y };
-			p.line(p1.x, p1.y, p2.x, p2.y);
-			p.strokeWeight(2);
-			p.fill(255, 200);
-			get_img_num() === current_img_id ? p.textSize(20) : p.textSize(15);
-			p.textAlign(p.CENTER, p.BOTTOM);
-			p.text(get_img_num() + i + 2 - dot_amount / 2, p1.x, p1.y);
+				const p1 = { x: circle_center.x - v2.x, y: circle_center.y - v2.y };
+				let v3;
+				if (j > 0) {
+					v3 = v2.normalize().mult(10);
+				}
+				else {
+					v3 = v2.normalize().mult(line_length);
+					p.text(get_img_num() + i + 2 - dot_amount / 2, p1.x, p1.y - 10);
+				}
+				const p2 = { x: p1.x + v3.x, y: p1.y + v3.y };
+				p.line(p1.x, p1.y, p2.x, p2.y);
+				p.strokeWeight(2);
+				p.fill(255, 200);
+				get_img_num() === current_img_id ? p.textSize(20) : p.textSize(15);
+				p.textAlign(p.CENTER, p.BOTTOM);
+			}
 		}
 		// Draw center line
 		p.stroke(0, 255, 255, 200);
@@ -149,26 +158,11 @@ const sketch = function(p: p5) {
 		const arrow_width = 10;
 		const arrow_height = 50;
 		p.beginShape();
-		// p.line(canvas_width / 2, 0, canvas_width / 2, canvas_height / 3);
 		p.fill(0, 255, 255, 100);
 		p.vertex(canvas_width / 2 - arrow_width, 0);
-		if (rewinding)
-			p.vertex(canvas_width / 2 - arrow_width / 2, arrow_height);
-		else {
-			switch (turning_dir) {
-				case 0:
-					p.vertex(canvas_width / 2, arrow_height);
-					break;
-				case -1:
-					p.vertex(canvas_width / 2 - arrow_width / 2, arrow_height);
-					break;
-				case 1:
-					p.vertex(canvas_width / 2 + arrow_width / 2, arrow_height);
-					break;
-			}
-		}
+		if (rewinding) p.vertex(canvas_width / 2 - arrow_width / 2, arrow_height);
+		else p.vertex(canvas_width / 2 - turning_dir * (arrow_width / 2), arrow_height);
 		p.vertex(canvas_width / 2 + arrow_width, 0);
-
 		p.endShape();
 	}
 
