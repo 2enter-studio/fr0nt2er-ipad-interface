@@ -1,4 +1,4 @@
-const [IMG_AMOUNT, BACKEND_PORT, LOCALHOST] = [2512, 3002, "192.168.137.1"];
+const [IMG_AMOUNT, BACKEND_PORT, LOCALHOST] = [2510, 3002, "192.168.137.1"];
 
 // Get Div's width & height
 const container_dom = <HTMLDivElement>document.getElementById("p5-container");
@@ -74,12 +74,19 @@ const switch_img = (img_id: number): void => {
 let current_touch_x: number | null;
 const touch_step = 0.5;
 
+let turning_dir = 0;
+
 container_dom.ontouchmove = (e) => {
 	document.getElementById('touch-me').style.display = 'none'
-	if (!rewinding && progress_value >= 10) {
+	if (!rewinding) {
 		const touch_x = e.touches[0].clientX;
 		if (!current_touch_x) current_touch_x = touch_x;
 		progress_value -= (touch_x - current_touch_x) * touch_step;
+
+		if (touch_x > current_touch_x) turning_dir = 1;
+		else if (touch_x <= current_touch_x) turning_dir = -1;
+		else turning_dir = 0;
+
 		current_touch_x = touch_x;
 		if (touch_x < current_touch_x) progress_value += touch_step;
 		else progress_value -= touch_step;
@@ -89,6 +96,7 @@ container_dom.ontouchmove = (e) => {
 container_dom.ontouchend = () => {
 	document.getElementById('touch-me').style.display = 'block'
 	current_touch_x = null;
+	turning_dir = 0;
 };
 
 setTimeout(() => {
@@ -135,9 +143,33 @@ const sketch = function(p: p5) {
 			p.textAlign(p.CENTER, p.BOTTOM);
 			p.text(get_img_num() + i + 2 - dot_amount / 2, p1.x, p1.y);
 		}
-		p.stroke(255, 200);
+		// Draw center line
+		p.stroke(0, 255, 255, 200);
 		p.strokeWeight(3);
-		p.line(canvas_width / 2, 0, canvas_width / 2, canvas_height);
+		const arrow_width = 10;
+		const arrow_height = 50;
+		p.beginShape();
+		// p.line(canvas_width / 2, 0, canvas_width / 2, canvas_height / 3);
+		p.fill(0, 255, 255, 100);
+		p.vertex(canvas_width / 2 - arrow_width, 0);
+		if (rewinding)
+			p.vertex(canvas_width / 2 - arrow_width / 2, arrow_height);
+		else {
+			switch (turning_dir) {
+				case 0:
+					p.vertex(canvas_width / 2, arrow_height);
+					break;
+				case -1:
+					p.vertex(canvas_width / 2 - arrow_width / 2, arrow_height);
+					break;
+				case 1:
+					p.vertex(canvas_width / 2 + arrow_width / 2, arrow_height);
+					break;
+			}
+		}
+		p.vertex(canvas_width / 2 + arrow_width, 0);
+
+		p.endShape();
 	}
 
 	p.setup = () => {
@@ -159,6 +191,7 @@ const sketch = function(p: p5) {
 		}
 
 		if (progress_value >= IMG_AMOUNT - 2) rewinding = true;
+		if (progress_value <= 0) progress_value = 0;
 
 		if (rewinding) {
 			progress_value -= IMG_AMOUNT / (frame_rate * 3);
