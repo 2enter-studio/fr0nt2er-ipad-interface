@@ -1,7 +1,7 @@
 // this is the right config
-//const [IMG_AMOUNT, BACKEND_PORT, LOCALHOST] = [2510, 3002, "192.168.137.1"];
+const [IMG_AMOUNT, BACKEND_PORT, LOCALHOST] = [2510, 3002, "192.168.137.1"];
 // this line config is for locally testing
-const [IMG_AMOUNT, BACKEND_PORT, LOCALHOST] = [2510, 3002, "localhost"];
+// const [IMG_AMOUNT, BACKEND_PORT, LOCALHOST] = [2510, 3002, "localhost"];
 
 // Get Div's width & height
 const container_dom = <HTMLDivElement>document.getElementById("p5-container");
