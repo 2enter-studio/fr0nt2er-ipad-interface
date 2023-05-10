@@ -1,4 +1,7 @@
-const [IMG_AMOUNT, BACKEND_PORT, LOCALHOST] = [2510, 3002, "192.168.137.1"];
+// this is the right config
+//const [IMG_AMOUNT, BACKEND_PORT, LOCALHOST] = [2510, 3002, "192.168.137.1"];
+// this line config is for locally testing
+const [IMG_AMOUNT, BACKEND_PORT, LOCALHOST] = [2510, 3002, "localhost"];
 
 // Get Div's width & height
 const container_dom = <HTMLDivElement>document.getElementById("p5-container");
@@ -162,16 +165,17 @@ const sketch = function(p: p5) {
 			}
 		}
 		// Draw center line
-		p.stroke(15, 255, 255, 200);
+		p.noStroke()
+		p.fill(15, 255, 255, 100); // orange
 		p.strokeWeight(2);
 		const arrow_width = 10;
-		const arrow_height = 50;
+		const arrow_height = 85;
+		p.circle(canvas_width / 2, arrow_height / 5, arrow_width * 2)
 		p.beginShape();
-		p.fill(15, 255, 255, 100);
-		p.vertex(canvas_width / 2 - arrow_width, 0);
-		if (rewinding) p.vertex(canvas_width / 2 - arrow_width / 2, arrow_height);
-		else p.vertex(canvas_width / 2 - turning_dir * (arrow_width / 2), arrow_height);
-		p.vertex(canvas_width / 2 + arrow_width, 0);
+		p.vertex(canvas_width / 2 - arrow_width, arrow_height / 5);
+		if (rewinding) p.vertex(canvas_width / 2 - arrow_width * 1.8, arrow_height);
+		else p.vertex(canvas_width / 2 - turning_dir * (arrow_width * 1.3), arrow_height);
+		p.vertex(canvas_width / 2 + arrow_width, arrow_height / 5);
 		p.endShape();
 	}
 
