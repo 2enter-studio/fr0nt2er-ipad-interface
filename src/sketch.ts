@@ -1,5 +1,5 @@
 // this is the right config
-const [IMG_AMOUNT, BACKEND_PORT, LOCALHOST] = [2510, 3002, "192.168.137.1"];
+const [IMG_AMOUNT, BACKEND_PORT, LOCALHOST] = [2510, 3002, "192.168.12.93"];
 // this line config is for locally testing
 // const [IMG_AMOUNT, BACKEND_PORT, LOCALHOST] = [2510, 3002, "localhost"];
 
@@ -87,7 +87,7 @@ container_dom.ontouchmove = (e) => {
 		progress_value -= (touch_x - current_touch_x) * touch_step;
 
 		if (touch_x > current_touch_x) turning_dir = -1;
-		else if (touch_x < current_touch_x) turning_dir =  1;
+		else if (touch_x < current_touch_x) turning_dir = 1;
 		else turning_dir = 0;
 
 		current_touch_x = touch_x;
