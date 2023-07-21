@@ -1,5 +1,5 @@
 // this is the right config
-const [IMG_AMOUNT, BACKEND_PORT, LOCALHOST] = [2510, 3002, "192.168.12.93"];
+const [IMG_AMOUNT, BACKEND_PORT, LOCALHOST] = [2510, 3002, "192.168.137.1"];
 // this line config is for locally testing
 // const [IMG_AMOUNT, BACKEND_PORT, LOCALHOST] = [2510, 3002, "localhost"];
 
@@ -49,7 +49,7 @@ const switch_img = (img_id: number): void => {
 	);
 	fetch(`http://${LOCALHOST}:${BACKEND_PORT}/imginfo/${img_id}`).then((res) => {
 		res.json().then((data) => {
-			let content: string = "";
+			const content: string = "";
 			const info_dom = document.getElementById("img-info");
 			for (const [key, value] of Object.entries(data)) {
 				// if (key !== "raw") content += `${key} -> ${value}<br>`;
